@@ -115,4 +115,3 @@ public final class Setting {
         print("About has been changed")
     }
 }
-
