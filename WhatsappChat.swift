@@ -1,8 +1,8 @@
 public protocol ChatSystem {
     var username: String { get }
     var about: About { get }
-    func sendMsgToContact(person: Contact, message: String) throws -> String 
-    func sendMsgToNumber(number: String, message: String) throws -> String 
+    func sendingMsg(To contact: Contact, message: String) throws 
+    func sendingMsg(To number: String, message: String) throws 
 }
 
 public enum Contact {
@@ -35,35 +35,34 @@ public final class Whatsapp: ChatSystem {
         self.setting = Setting(username: username)
     }
     
-    public func sendingMsg(To contact: Contact, message: String) throws -> String  {
+    public func sendingMsg(To contact: Contact, message: String) throws  {
         if message.isEmpty {
             throw WhatsappError.msgIsEmpty
         }
-        return message
+        print("Sent")
     }
     
-    func broadcast(To contacts: [Contact], message: String) throws -> String {
+    func broadcast(To contacts: [Contact], message: String) throws {
         if message.isEmpty {
             throw WhatsappError.msgIsEmpty
         }
-        return message
+        print("Sent")
     }
     
-    public func sendingMsg(To number: String, message: String) throws -> String {
+    public func sendingMsg(To number: String, message: String) throws {
         if (number.count != 10 ) {
             throw WhatsappError.numberIsIncorrect
-        } 
-        if message.isEmpty {
+        } else if message.isEmpty {
             throw WhatsappError.msgIsEmpty
         }
-        return message
+        print("Sent")
     }
     
-    func sendingEmojis(To number: Contact, emoji: [Emoji]) throws -> Any {
+    func sendingEmojis(To number: Contact, emoji: [Emoji]) throws {
         if emoji.isEmpty {
             throw WhatsappError.msgIsEmpty
         }
-        return emoji
+        print("Sent")
     }
     
     func sendingContacts(To number: Contact, contact: Contact) {
@@ -72,6 +71,7 @@ public final class Whatsapp: ChatSystem {
     
     func changeUsername(username: String) {
         setting.changeUsername(username: username)
+        print("Username has been changed")
     }
 }
 
@@ -84,6 +84,6 @@ public final class Setting {
     
     func changeUsername(username: String) {
         self.username = username
+        print("Username has been changed")
     }
 }
-
