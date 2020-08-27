@@ -1,5 +1,5 @@
 public protocol ChatSystem {
-    var userName: String { get }
+    var username: String { get }
     var about: About { get }
     func sendMsgToContact(person: Contact, message: String) throws -> String 
     func sendMsgToNumber(number: String, message: String) throws -> String 
@@ -17,13 +17,23 @@ public enum About {
     case busy, available, whatsappOnly, atWork
 }
 
+public enum Emoji {
+    case 👍, 😂, 😍, 😨, 😡
+}
+
 public final class Whatsapp: ChatSystem {
-    public var userName: String
+    
+    public var setting: Setting
+    public var username: String {
+        setting.username
+    }
+    
+    
     public var about: About
     
-    init(userName: String, about: About) {
-        self.userName = userName
+    init(username: String, about: About) {
         self.about = about
+        self.setting = Setting(username: username)
     }
     
     public func sendMsgToContact(person: Contact, message: String) throws -> String  {
@@ -33,7 +43,7 @@ public final class Whatsapp: ChatSystem {
         return message
     }
     
-    func broadcasttoContact(person: [Contact], message: String) throws -> String {
+    func broadcastToContact(person: [Contact], message: String) throws -> String {
         if message.isEmpty {
             throw WhatsappError.msgIsEmpty
         }
@@ -49,4 +59,32 @@ public final class Whatsapp: ChatSystem {
         }
         return message
     }
+    
+    func sendingEmojis(number: Contact, emoji: [Emoji]) throws -> Any {
+        if emoji.isEmpty {
+            throw WhatsappError.msgIsEmpty
+        }
+        return emoji
+    }
+    
+    func sendingContacts(To number: Contact, contact: Contact) {
+        print("Sent")
+    }
+    
+    func changeUsername(username: String) {
+        setting.changeUsername(username: username)
+    }
 }
+
+public final class Setting {
+    public var username: String
+    
+    init(username: String) {
+        self.username = username
+    }
+    
+    func changeUsername(username: String) {
+        self.username = username
+    }
+}
+
