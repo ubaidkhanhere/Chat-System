@@ -9,7 +9,7 @@ public enum Contact {
     case shoeb, nafees, shadab, zeehshan
 }
 
-enum WhatsappError: Error {
+public enum WhatsappError: Error {
     case msgIsEmpty, numberIsIncorrect
 }
 
@@ -28,7 +28,6 @@ public final class Whatsapp: ChatSystem {
         setting.username
     }
     
-    
     public var about: About
     
     init(username: String, about: About) {
@@ -36,21 +35,21 @@ public final class Whatsapp: ChatSystem {
         self.setting = Setting(username: username)
     }
     
-    public func sendMsgToContact(person: Contact, message: String) throws -> String  {
+    public func sendingMsg(To contact: Contact, message: String) throws -> String  {
         if message.isEmpty {
             throw WhatsappError.msgIsEmpty
         }
         return message
     }
     
-    func broadcastToContact(person: [Contact], message: String) throws -> String {
+    func broadcast(To contacts: [Contact], message: String) throws -> String {
         if message.isEmpty {
             throw WhatsappError.msgIsEmpty
         }
         return message
     }
     
-    public func sendMsgToNumber(number: String, message: String) throws -> String {
+    public func sendingMsg(To number: String, message: String) throws -> String {
         if (number.count != 10 ) {
             throw WhatsappError.numberIsIncorrect
         } 
@@ -60,7 +59,7 @@ public final class Whatsapp: ChatSystem {
         return message
     }
     
-    func sendingEmojis(number: Contact, emoji: [Emoji]) throws -> Any {
+    func sendingEmojis(To number: Contact, emoji: [Emoji]) throws -> Any {
         if emoji.isEmpty {
             throw WhatsappError.msgIsEmpty
         }
