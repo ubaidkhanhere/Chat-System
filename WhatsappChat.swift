@@ -121,4 +121,5 @@ var dic: Dictionary<Contact, [String]> = [Contact.shadab : ["Hi", "How are you"]
 func chatHistory(_ contact: Contact) -> Dictionary<Contact, [String]>  {
     return dic
 }
+    dic[.shadab]! += ["Where are you", "i have a good news"]
 }
