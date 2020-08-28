@@ -118,7 +118,7 @@ public final class Setting {
     // I've created a collection of msgs which will give you your chat history when you call chatHistory function.
 var dic: Dictionary<Contact, [String]> = [Contact.shadab : ["Hi", "How are you"]]
 
-func chatHistory(contact: Contact) -> Dictionary<Contact, [String]>  {
+func chatHistory(_ contact: Contact) -> Dictionary<Contact, [String]>  {
     return dic
 }
 }
