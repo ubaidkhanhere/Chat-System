@@ -121,7 +121,5 @@ public final class Setting {
     }
 }
 
-var msgs = Whatsapp(username: "Ubaid", about: .atWork)
-var hello = try msgs.sendingMsg(To: "8718920881", message: ["Good Morning", "Good Afternoon"])
-hello = try msgs.sendingMsg(To: "8718920881", message: ["Good Evening" , "Good Night"])
+
 
