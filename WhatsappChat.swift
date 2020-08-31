@@ -3,7 +3,7 @@ public protocol ChatSystem {
     var username: String { get }
     var about: About { get }
     func sendingMsg(To contact: Contact, message: String) throws 
-    func sendingMsg(To number: String, message: String) throws 
+    func sendingMsg(To number: String, message: [String]) throws -> [String]
 }
 
 // This is Contact enum, where i defined some contacts here.
@@ -38,6 +38,8 @@ public final class Whatsapp: ChatSystem {
         setting.about
     }
     
+    var history: [String] = [""]
+    
     init(username: String, about: About) {
         self.setting = Setting(username: username, about: about)
     }
@@ -59,12 +61,15 @@ public final class Whatsapp: ChatSystem {
     }
     
     // With the help of this function you can send message to a particular number.
-    public func sendingMsg(To number: String, message: String) throws {
+    public func sendingMsg(To number: String, message: [String]) throws -> [String] {
         if (number.count != 10 ) {
             throw WhatsappError.numberIsIncorrect
         } else if message.isEmpty {
             throw WhatsappError.msgIsEmpty
         }
+        
+        history = history + message
+        return history
         print("Sent")
     }
     
@@ -114,12 +119,9 @@ public final class Setting {
         self.about = about
         print("About has been changed")
     }
-    
-    // I've created a collection of msgs which will give you your chat history when you call chatHistory function.
-var dic: Dictionary<Contact, [String]> = [Contact.shadab : ["Hi", "How are you"]]
+}
 
-func chatHistory(_ contact: Contact) -> Dictionary<Contact, [String]>  {
-    return dic
-}
-    dic[.shadab]! += ["Where are you", "i have a good news"]
-}
+var msgs = Whatsapp(username: "Ubaid", about: .atWork)
+var hello = try msgs.sendingMsg(To: "8718920881", message: ["Good Morning", "Good Afternoon"])
+hello = try msgs.sendingMsg(To: "8718920881", message: ["Good Evening" , "Good Night"])
+
