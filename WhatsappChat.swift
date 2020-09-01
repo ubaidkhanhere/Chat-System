@@ -16,6 +16,16 @@ public enum WhatsappError: Error {
     case msgIsEmpty, numberIsIncorrect
 }
 
+// This is Fonts enum, where i defined some fonts here.
+public enum Font {
+    case arial, futura, cursive
+}
+
+// This is Color enum, where i defined some colors here.
+public enum Color {
+    case yellow, red, green, blue
+}
+
 // This is predefined statements which gives your currect condition.
 public enum About {
     case busy, available, whatsappOnly, atWork
@@ -121,5 +131,15 @@ public final class Setting {
     }
 }
 
-
-
+public final class Status {
+    // With the help of this function you can create whatsapp status for your contacts.
+    func status(_ contact: [Contact], _ color: Color, _ font: Font, _ message: String) throws {
+        if message.isEmpty {
+            throw WhatsappError.msgIsEmpty
+        }
+        print("Status Updated")
+        }
+    deinit {
+        print("Removed")
+    }
+}
